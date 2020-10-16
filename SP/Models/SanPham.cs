@@ -8,6 +8,8 @@ namespace SP.Models
 {
     public class SanPham
     {
+
+        //note
         public int ID { get; set; }
         public string Ten { get; set; }
 
