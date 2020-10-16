@@ -1,0 +1,64 @@
+﻿@model SP.Models.SanPham
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>SanPham</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Ten" class="control-label"></label>
+                <input asp-for="Ten" class="form-control" />
+                <span asp-validation-for="Ten" class="text-danger"></span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="ful" name="ful" />
+                <label class="custom-file-label" for="ful">Choose-File</label>
+            </div>
+            <div class="form-group">
+                <img id="imgPre" src="~/img/@Model.Hinh" alt="No-Image" class="img-thumbnail" />
+                <input asp-for="Hinh" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Maloai" class="control-label"></label>
+                <select asp-for="Maloai" asp-items="ViewBag.Maloai" class="input-group"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function readURL(input, idImg) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(idImg).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#ful").change(function () {
+            readURL(this, '#imgPre');
+        });
+    </script>
+
+}
